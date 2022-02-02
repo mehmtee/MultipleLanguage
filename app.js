@@ -18,7 +18,6 @@ app.use(session({
 
 
 
-console.log("ok")
 
 manager(app)
 app.listen(2000,() => {
