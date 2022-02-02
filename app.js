@@ -5,7 +5,6 @@ const formData = require("express-form-data");
 const session = require('express-session')
 
 const bodyParser = require('body-parser')
-const mongoDb = require('./database/mongo');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
