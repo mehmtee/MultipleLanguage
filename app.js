@@ -17,7 +17,7 @@ app.use(session({
   }))
 
 
-
+console.log("test")
 
 manager(app)
 app.listen(2000,() => {
