@@ -8,5 +8,5 @@ router.post('/',loginMiddleware.validate,userController.create);
 
 router.get('/',loginMiddleware.validate,isAdmin,userController.getAll);
 router.get('/:id',loginMiddleware.validate,userController.get);
-
+router.put('/:id',loginMiddleware.validate,isAdmin,userController.deleteUser);
 module.exports =  router;

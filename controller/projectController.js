@@ -34,33 +34,47 @@ module.exports = {
       return res.status(400).send({ status: "false", message: err.message });
     }
   },
-  get: async (req, res) => {
+  getOne: async (req, res) => {
     try {
       const schema = Joi.object({
         projectId: Joi.string(),
         accountId: Joi.string().required(),
       });
-      await schema.validateAsync(req.query);
+      await schema.validateAsync(req.params);
     } catch (err) {
       return res.json({ status: "false", message: err.message });
     }
-
-
     if(!(req.session.user.accountType == '1' || req.session.user.accountId == req.params.accountId )) res.status(403).send({ status: "false", message: "Permission denied"})
 
     try {
+      const result = await Project.findOne({accountId : req.params.accountId});
+      
+      const project = result ? result : [];
 
-
-      const result = await Project.find({...req.query});
       res.json({
         status: "true",
-        result,
+        project,
         message: "Successfully getting project.",
       });
     } catch (err) {
       return res.status(400).send({ status: "false", message: err.message });
     }
   },
+
+
+  get : async (req,res) => {
+    try {
+      const result = await Project.find();
+      res.json({
+        status: "true",
+        projects : result,
+        message: "Successfully getting project.",
+      });
+    } catch (err) {
+      return res.status(400).send({ status: "false", message: err.message });
+    }
+  },
+
 
   update: async (req, res) => {
     try {
