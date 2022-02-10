@@ -5,6 +5,7 @@ const translationRouter = require("./translationRouter");
 const projectRouter = require("./projectRouter");
 const createSession = require("../middleware/createSession");
 const tokenRouter = require('./tokenRouter');
+const langRouter = require('./langRouter')
 const jwt = require("jsonwebtoken");
 module.exports = (app) => {
   app.use("/login", loginRouter);
@@ -19,6 +20,8 @@ module.exports = (app) => {
   app.use("/project", projectRouter);
 
   app.use('/token', tokenRouter);
+
+  app.use('/lang',langRouter);
 
 
   // app.use("/token/validate", loginMiddleware.validate, (req, res) => {
