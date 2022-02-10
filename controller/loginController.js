@@ -24,8 +24,10 @@ const loginController = {
             const u = (await User.findOne(req.body))
             
             if(u){
-                const token = jwt.sign({user : u,expiresIn:3600},secretKey)
-                return res.status(200).send({status : 'true',message : 'Successfull',token })
+                u.password = '';
+                const token = jwt.sign({user : u,expiresIn:3600},secretKey);
+                let account = u;
+                return res.status(200).send({status : 'true',message : 'Successfull',token ,account})
             }else{
                 return res.status(200).send({status : 'false',message :'User not found !'})
             }

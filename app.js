@@ -3,8 +3,15 @@ const app = express();
 const manager = require('./router/routerManager');
 const formData = require("express-form-data");
 const session = require('express-session')
-
+const mongo = require('./database/mongo')
 const bodyParser = require('body-parser')
+const cors = require('cors');
+const options = {
+  origin: 'http://localhost:3000'
+  }
+  
+app.use(cors(options))
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -17,7 +24,6 @@ app.use(session({
   }))
 
 
-console.log("test")
 
 manager(app)
 app.listen(2000,() => {
