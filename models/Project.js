@@ -6,7 +6,10 @@ const projectSchema = mongose.Schema({
     },
     projectName : {
         type : String
+    },
+    langs : {
+        type : Array
     }
 })
 const project = mongose.model('project', projectSchema)
-module.exports = project
+module.exports = project;

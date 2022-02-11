@@ -9,7 +9,7 @@ const translationSchema = mongose.Schema({
         type: String,
     },
     projectId : {
-        type : String
+        type : [{ type: mongose.Schema.Types.ObjectId, ref: 'project' }]
     },
     langId : {
         type : String

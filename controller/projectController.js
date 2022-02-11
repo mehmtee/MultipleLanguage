@@ -1,13 +1,17 @@
 const Project = require("../models/Project");
+const LangModel = require("../models/Lang");
 const Joi = require("joi");
 module.exports = {
   create: async (req, res) => {
+
     const schema = Joi.object({
       accountId: Joi.string().required(),
       projectName: Joi.string().required(),
+      langs : Joi.array().required(),
     });
 
     try {
+      req.body.langs = JSON.parse(req.body.langs);
       await schema.validateAsync(req.body);
     } catch (err) {
       return res.status(400).send({ status: "false", message: err.message });
