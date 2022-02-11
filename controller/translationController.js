@@ -67,7 +67,7 @@ module.exports = {
       //return res.json(req.body)
       const translation = await Translation.find({ ...req.body });
 
-      res.json({ status: "true", message: translation });
+      res.json({ status: "true", message: "Successfully",translation: translation });
     } catch (e) {
       res.json({ status: "false", message: e.message });
     }
