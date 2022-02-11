@@ -4,7 +4,7 @@ module.exports = {
     get : async (req,res) => {
         try{
             const r = await LangModel.find({projectId : req.params.projectId});
-            res.json({status : 'true',langs : r,message : 'Lang list'})
+            res.json({status : 'true',langs : r,message : 'Lang list',langs : r})
     
         }catch(e){
             res.json({status : 'false',message : e.message})
@@ -33,7 +33,6 @@ module.exports = {
 
         }catch(e) {
             return res.json({status : 'false',message : e.message})
-
         }
 
 
