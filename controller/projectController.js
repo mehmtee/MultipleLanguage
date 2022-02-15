@@ -3,11 +3,10 @@ const LangModel = require("../models/Lang");
 const Joi = require("joi");
 module.exports = {
   create: async (req, res) => {
-
     const schema = Joi.object({
       accountId: Joi.string().required(),
       projectName: Joi.string().required(),
-      langs : Joi.array().required(),
+      langs: Joi.array().required(),
     });
 
     try {
@@ -38,6 +37,16 @@ module.exports = {
       return res.status(400).send({ status: "false", message: err.message });
     }
   },
+
+  destroy: async (req, res) => {
+    try {
+      const result = await Project.deleteOne({ _id: req.params.id });
+      return res.json({ status: "true", message: "Success" });
+    } catch (err) {
+      return res.json({ status: "false", message: err.message });
+    }
+  },
+
   getOne: async (req, res) => {
     try {
       const schema = Joi.object({
@@ -48,11 +57,17 @@ module.exports = {
     } catch (err) {
       return res.json({ status: "false", message: err.message });
     }
-    if(!(req.session.user.accountType == '1' || req.session.user.accountId == req.params.accountId )) res.status(403).send({ status: "false", message: "Permission denied"})
+    if (
+      !(
+        req.session.user.accountType == "1" ||
+        req.session.user.accountId == req.params.accountId
+      )
+    )
+      res.status(403).send({ status: "false", message: "Permission denied" });
 
     try {
-      const result = await Project.findOne({accountId : req.params.accountId});
-      
+      const result = await Project.findOne({ accountId: req.params.accountId });
+
       const project = result ? result : [];
 
       res.json({
@@ -65,20 +80,18 @@ module.exports = {
     }
   },
 
-
-  get : async (req,res) => {
+  get: async (req, res) => {
     try {
       const result = await Project.find();
       res.json({
         status: "true",
-        projects : result,
+        projects: result,
         message: "Successfully getting project.",
       });
     } catch (err) {
       return res.status(400).send({ status: "false", message: err.message });
     }
   },
-
 
   update: async (req, res) => {
     try {
@@ -105,9 +118,16 @@ module.exports = {
     }
 
     try {
-     const project = new Project()
-     const result = await Project.updateMany({_id : req.body.projectId}, { $set: { projectName: req.body.projectName } });
-     res.json({status : 'true',message : "Successfully updated.",project : result})
+      const project = new Project();
+      const result = await Project.updateMany(
+        { _id: req.body.projectId },
+        { $set: { projectName: req.body.projectName } }
+      );
+      res.json({
+        status: "true",
+        message: "Successfully updated.",
+        project: result,
+      });
     } catch (err) {
       return res.status(400).send({ status: "false", message: err.message });
     }

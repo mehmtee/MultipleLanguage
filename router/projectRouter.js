@@ -11,4 +11,6 @@ router.get('/',loginMiddleware.validate,isAdmin, projectController.get);
 
 router.put('/',loginMiddleware.validate,projectController.update);
 
+router.delete('/:id',loginMiddleware.validate,projectController.destroy)
+
 module.exports =  router;
